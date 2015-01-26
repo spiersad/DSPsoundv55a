@@ -420,13 +420,14 @@ public static Myclass linconvolve(Myclass x, Myclass h) {
 
 
 public void ft() {
-    Myclass h = new Myclass(this.n);    
+    Myclass h = new Myclass(this.n);
+    double ww = 0;
     int errors = 0;
     
     for (int kk = 0; kk < this.n; kk++) {
         for (int nn = 0; nn < this.n; nn++) {
             try {
-                double ww = 2 * Math.PI * nn * kk / this.n;
+                ww = 2 * Math.PI * nn * kk / this.n;
                 h.re[kk] +=  this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww);
                 h.im[kk] += -this.re[nn] * Math.sin(ww) + this.im[nn] * Math.cos(ww);
                 }
