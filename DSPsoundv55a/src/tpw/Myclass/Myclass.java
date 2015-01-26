@@ -418,25 +418,23 @@ public static Myclass linconvolve(Myclass x, Myclass h) {
     return y;   
 }
 
-public void freqresponse() {
-    double twoPI = Math.PI/2;
-    Myclass h = new Myclass(1000);    
+
+public void ft() {
+    Myclass h = new Myclass(this.n);    
     int errors = 0;
-    int nn = 0;
     
-    for (double ww = 0; ww <= twoPI; ww = ww + twoPI/this.n) {
-        for (int kk = 0; kk < this.n; kk++) {
+    for (int kk = 0; kk < this.n; kk++) {
+        for (int nn = 0; nn < this.n; nn++) {
             try {
-                (h.re)[nn] = this.re[kk]*(float)Math.cos(-ww*kk) - this.im[kk]*(float)Math.sin(-ww*kk);
-                (h.im)[nn] = this.re[kk]*(float)Math.sin(-ww*kk) + this.im[kk]*(float)Math.cos(-ww*kk);
+                double ww = 2 * Math.PI * nn * kk / this.n;
+                h.re[kk] +=  this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww);
+                h.im[kk] += -this.re[nn] * Math.sin(ww) + this.im[nn] * Math.cos(ww);
                 }
             catch (java.lang.IndexOutOfBoundsException e) {
                 errors++;
             }
         }
-        nn++;
     }
-    //h.magnitude();
     this.equals(h);
     System.out.println("Index out of bounds errors: " + errors); 
 }

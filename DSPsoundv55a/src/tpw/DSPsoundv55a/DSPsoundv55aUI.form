@@ -238,6 +238,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonMagHomegaMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMagHomegaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -300,6 +301,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonImpulseResponseMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonImpulseResponseActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonFreqResponse">
@@ -308,6 +310,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonFreqResponseMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFreqResponseActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonA">

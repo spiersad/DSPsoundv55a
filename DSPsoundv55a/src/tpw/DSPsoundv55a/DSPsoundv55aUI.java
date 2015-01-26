@@ -299,6 +299,11 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
                 jButtonMagHomegaMouseClicked(evt);
             }
         });
+        jButtonMagHomega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMagHomegaActionPerformed(evt);
+            }
+        });
         jPanel8.add(jButtonMagHomega);
 
         jPanel2.add(jPanel8);
@@ -356,12 +361,22 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
                 jButtonImpulseResponseMouseClicked(evt);
             }
         });
+        jButtonImpulseResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImpulseResponseActionPerformed(evt);
+            }
+        });
         jPanel9.add(jButtonImpulseResponse);
 
         jButtonFreqResponse.setText("Freq Resp");
         jButtonFreqResponse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonFreqResponseMouseClicked(evt);
+            }
+        });
+        jButtonFreqResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFreqResponseActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonFreqResponse);
@@ -511,7 +526,11 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     String fkey = new String("|H(w)|");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-// Put your ecgr4124 code here
+    Myclass x = new Myclass();
+    x.equals(dispData);
+    x.ft();
+    x.magnitude();
+    dispData.equals(x);
         
     refreshDisplay(); //redraws output display screen           
           
@@ -533,10 +552,6 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
 
     private void jButtonFreqResponseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFreqResponseMouseClicked
 
-        Myclass x = new Myclass();
-        x.equals(dispData);
-        x.freqresponse();
-        dispData.equals(x);
         
     String fkey = new String("FreqResponse");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
@@ -875,6 +890,18 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     private void jButtonConvolveF1F2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConvolveF1F2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonConvolveF1F2ActionPerformed
+
+    private void jButtonFreqResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFreqResponseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFreqResponseActionPerformed
+
+    private void jButtonImpulseResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImpulseResponseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonImpulseResponseActionPerformed
+
+    private void jButtonMagHomegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMagHomegaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonMagHomegaActionPerformed
 
     
     
