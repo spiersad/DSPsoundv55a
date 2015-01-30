@@ -543,7 +543,11 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     String fkey = new String("20log10magFFT");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-// Put your ecgr4124 code here
+    Myclass x = new Myclass();
+    x.equals(dispData);
+    x.equals(x.fft());
+    x.twentyLogTenMag(80);
+    dispData.equals(x);
         
     refreshDisplay(); //redraws output display screen           
     

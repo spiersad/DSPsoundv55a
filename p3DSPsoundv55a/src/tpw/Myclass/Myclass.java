@@ -191,6 +191,22 @@ public void lnmag()
 
 
 
+public void twentyLogTenMag(float differance) {
+    this.magnitude();
+    float maxx = 0;
+    for(int nn=0; nn<this.n; nn++) {
+        this.re[nn] = (float)(20*(Math.log(this.re[nn])/Math.log(10)));
+        if (this.re[nn] > maxx) {
+            maxx = this.re[nn];
+        }
+    }
+    float min = maxx - differance;
+    for(int nn=0; nn<this.n; nn++) {
+        if (this.re[nn] < min) {
+            this.re[nn] = min;
+        }
+    }
+}
 
 
 public void   equals(Myclass  x)	 //equal
