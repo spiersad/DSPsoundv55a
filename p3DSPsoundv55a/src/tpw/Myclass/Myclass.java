@@ -440,12 +440,12 @@ public void ft() {
     double ww = 0;
     int errors = 0;
     
-    for (int kk = 0; kk < this.n; kk++) {
-        for (int nn = 0; nn < this.n; nn++) {
+    for (int nn = 0; nn < this.n; nn++) {
+        for (int kk = 0; kk < this.n; kk++) {
             try {
                 ww = 2 * Math.PI * nn * kk / this.n;
-                h.re[kk] +=  this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww);
-                h.im[kk] += -this.re[nn] * Math.sin(ww) + this.im[nn] * Math.cos(ww);
+                h.re[nn] +=  this.re[kk] * Math.cos(ww) - this.im[kk] * Math.sin(ww);
+                h.im[nn] += -this.re[kk] * Math.sin(ww) + this.im[kk] * Math.cos(ww);
                 }
             catch (java.lang.IndexOutOfBoundsException e) {
                 errors++;
