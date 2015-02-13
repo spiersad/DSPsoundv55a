@@ -191,11 +191,17 @@ public void lnmag()
 
 
 
-public void twentyLogTenMag(float differance) {
+public void LogTenMag(float differance) {
     this.magnitude();
     float maxx = 0;
     for(int nn=0; nn<this.n; nn++) {
-        this.re[nn] = (float)(20*(Math.log(this.re[nn])/Math.log(10)));
+        if (this.re[nn] == 0) { 
+            this.re[nn] = 0;
+        }
+        else {
+            this.re[nn] = (float)((Math.log(this.re[nn])/Math.log(10)));
+        }
+        
         if (this.re[nn] > maxx) {
             maxx = this.re[nn];
         }
@@ -267,24 +273,38 @@ public void   divide(float x) {
 }
 
 
-public void multiply(float x) {
+public void multiply(float real, float imag) {
     if( (n ==  0) || (data == null )) {
 	System.out.println(   "null array assignment in public void divide(multiply x) \n");
 	Runtime.getRuntime().exit(1);
     }
     else {
         for (int xx = 0; xx < n; xx++) 
-            (this.re)[xx] =  (this.re)[xx] * x;
+            (this.re)[xx] =  (this.re)[xx] * real - this.im[xx] * imag;
         
         for (int xx = 0; xx < n; xx++)
-            (this.im)[xx] =  (this.im)[xx] * x;
-            //return z;
+            (this.im)[xx] =  (this.im)[xx] * real + this.re[xx] * imag;
     }
 }
 
-//    
-//    Function: Myclass  public void plus(Myclass x)
-//
+
+public void freqshift(int m) {
+    if( (this.n ==  0) || (this.data == null )) {
+	System.out.println(   "null array assignment in public void divide(multiply x) \n");
+	Runtime.getRuntime().exit(1);
+    }
+    else {
+        for (int nn = 0; nn < this.n; nn++) {
+            double ww = 2 * Math.PI * m / this.n;
+            (this.re)[nn] =  (float)((this.re)[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
+            (this.im)[nn] =  (float)((this.im)[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
+        }
+    }
+}
+
+
+
+
 public void plus(Myclass x) {
     if( (n ==  0) || (data== null ) || (x.n ==  0)  || (x.data== null ) ) {
 	System.out.println(   "null array assignment in public void plus(Myclass x) \n");

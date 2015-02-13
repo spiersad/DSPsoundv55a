@@ -545,8 +545,10 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
 
     Myclass x = new Myclass();
     x.equals(dispData);
-    x.equals(x.fft());
-    x.twentyLogTenMag(80);
+    x = x.fft();
+    x.multiply((float)Math.cos(Math.PI), (float)Math.sin(Math.PI));
+    x.LogTenMag(80);
+    x.multiply(20, 0);
     dispData.equals(x);
         
     refreshDisplay(); //redraws output display screen           
