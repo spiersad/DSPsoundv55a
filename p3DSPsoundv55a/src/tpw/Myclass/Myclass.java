@@ -191,7 +191,7 @@ public void lnmag()
 
 
 
-public void LogTenMag(float differance) {
+public void twentyLogTenMag(float differance) {
     this.magnitude();
     float maxx = 0;
     for(int nn=0; nn<this.n; nn++) {
@@ -199,7 +199,7 @@ public void LogTenMag(float differance) {
             this.re[nn] = 0;
         }
         else {
-            this.re[nn] = (float)((Math.log(this.re[nn])/Math.log(10)));
+            this.re[nn] = (float)((20*Math.log(this.re[nn])/Math.log(10)));
         }
         
         if (this.re[nn] > maxx) {
@@ -279,27 +279,28 @@ public void multiply(float real, float imag) {
 	Runtime.getRuntime().exit(1);
     }
     else {
-        for (int xx = 0; xx < n; xx++) 
+        for (int xx = 0; xx < n; xx++) {
             (this.re)[xx] =  (this.re)[xx] * real - this.im[xx] * imag;
-        
-        for (int xx = 0; xx < n; xx++)
             (this.im)[xx] =  (this.im)[xx] * real + this.re[xx] * imag;
+        }
     }
 }
 
 
-public void freqshift(int m) {
+public void freqShift(int distance) {
+    Myclass Y = new Myclass(this.n);
     if( (this.n ==  0) || (this.data == null )) {
 	System.out.println(   "null array assignment in public void divide(multiply x) \n");
 	Runtime.getRuntime().exit(1);
     }
     else {
         for (int nn = 0; nn < this.n; nn++) {
-            double ww = 2 * Math.PI * m / this.n;
-            (this.re)[nn] =  (float)((this.re)[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
-            (this.im)[nn] =  (float)((this.im)[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
+            double ww = 2 * Math.PI * distance * nn / this.n;
+            Y.re[nn] = (float)(this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
+            Y.im[nn] = (float)(this.im[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
         }
     }
+    this.equals(Y);
 }
 
 
