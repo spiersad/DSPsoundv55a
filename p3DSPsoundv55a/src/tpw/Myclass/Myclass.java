@@ -295,7 +295,7 @@ public void freqShift(int distance) {
     }
     else {
         for (int nn = 0; nn < this.n; nn++) {
-            double ww = 2 * Math.PI * distance * nn / this.n;
+            double ww = -2 * Math.PI * distance * nn / this.n;
             Y.re[nn] = (float)(this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
             Y.im[nn] = (float)(this.im[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
         }
@@ -464,9 +464,9 @@ public void ft() {
     for (int nn = 0; nn < this.n; nn++) {
         for (int kk = 0; kk < this.n; kk++) {
             try {
-                ww = 2 * Math.PI * nn * kk / this.n;
+                ww = -2 * Math.PI * nn * kk / this.n;
                 h.re[nn] +=  this.re[kk] * Math.cos(ww) - this.im[kk] * Math.sin(ww);
-                h.im[nn] += -this.re[kk] * Math.sin(ww) + this.im[kk] * Math.cos(ww);
+                h.im[nn] +=  this.re[kk] * Math.sin(ww) + this.im[kk] * Math.cos(ww);
                 }
             catch (java.lang.IndexOutOfBoundsException e) {
                 errors++;
@@ -477,6 +477,27 @@ public void ft() {
     System.out.println("Index out of bounds errors: " + errors); 
 }
 
+
+public void ift() {
+    Myclass h = new Myclass(this.n);
+    double ww = 0;
+    int errors = 0;
+    
+    for (int nn = 0; nn < this.n; nn++) {
+        for (int kk = 0; kk < this.n; kk++) {
+            try {
+                ww = 2 * Math.PI * nn * kk / this.n;
+                h.re[nn] +=  (this.re[kk] * Math.cos(ww) - this.im[kk] * Math.sin(ww))/this.n;
+                h.im[nn] +=  (this.re[kk] * Math.sin(ww) + this.im[kk] * Math.cos(ww))/this.n;
+                }
+            catch (java.lang.IndexOutOfBoundsException e) {
+                errors++;
+            }
+        }
+    }
+    this.equals(h);
+    System.out.println("Index out of bounds errors: " + errors); 
+}
 
 
 public Myclass fft2(int inv)		//inverse if inv !=0
