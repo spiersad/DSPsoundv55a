@@ -561,7 +561,10 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     String fkey = new String("FreqResponse");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-// Put your ecgr4124 code here
+    Myclass x = new Myclass();
+    x = Myclass.freqresp(0, 1, 0, 0, 0, 1, -1, (float).5);
+    dispData.equals(x);
+
         
     refreshDisplay(); //redraws output display screen           
     

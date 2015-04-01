@@ -286,6 +286,23 @@ public void multiply(float real, float imag) {
     }
 }
 
+public static Myclass freqresp(float a3, float a2, float a1, float a0, 
+                               float b3, float b2, float b1, float b0){
+    Myclass N = new Myclass(2048);
+    Myclass D = new Myclass(2048);
+    
+    for (int kk  = 0; kk < 2048; kk++){
+        float ww = (float)Math.PI * 2 * kk / 2048;
+        N.re[kk] = (float)(a3 * Math.cos(3*ww) + a2 * Math.cos(2*ww) + a1 * Math.cos(ww) + a0);
+        N.im[kk] = (float)(a3 * Math.sin(3*ww) + a2 * Math.sin(2*ww) + a1 * Math.sin(ww)); 
+        D.re[kk] = (float)(b3 * Math.cos(3*ww) + b2 * Math.cos(2*ww) + b1 * Math.cos(ww) + b0);
+        D.im[kk] = (float)(b3 * Math.sin(3*ww) + b2 * Math.sin(2*ww) + b1 * Math.sin(ww));
+    }
+    N.divide(D);
+    N.magnitude();
+    return N;
+}
+
 
 public void freqShift(int distance) {
     Myclass Y = new Myclass(this.n);
@@ -332,14 +349,14 @@ public void divide(Myclass x) {
     }
     else if( (n ==  x.n)  ) { 
         for (int xx = 0; xx < n; xx++) {
-            if (x.re[xx] == 0) {
+            if (x.re[xx] == 0 || ((x.re)[xx]*(x.re)[xx]+(x.im)[xx]*(x.im)[xx]) == 0) {
                this.re[xx] = 0;
             }
             else {
                 (this.re)[xx]  =  ((this.re)[xx]*(x.re)[xx]+(this.im)[xx]*(x.im)[xx])
                                   /((x.re)[xx]*(x.re)[xx]+(x.im)[xx]*(x.im)[xx]);
             }
-            if (x.im[xx] == 0) {
+            if (x.im[xx] == 0 || ((x.re)[xx]*(x.re)[xx]+(x.im)[xx]*(x.im)[xx]) == 0) {
                this.im[xx] = 0;
             }
             else {
