@@ -18,8 +18,8 @@ import java.io.*;
 public class Myclass {
     
 	private byte  data[];		//byte-data (data) array
-	private float  re[];		//real data array
-	private float  im[];		//imaginary data array
+	private double  re[];		//real data array
+	private double  im[];		//imaginary data array
 	private int n;
 
     
@@ -56,13 +56,13 @@ public Myclass()
 {
 	n = 10; 			//default length
 	data = new byte[n];		//char data array creation
-	re = new float[n];	
-	im = new float[n];	
+	re = new double[n];	
+	im = new double[n];	
 	for (int a=0; a<n; a++ )
 		{
 		data[a] = (byte)  0;
-		re[a]    = (float) 0;
-		im[a]    = (float) 0;
+		re[a]    = (double) 0;
+		im[a]    = (double) 0;
 		}
 }
 
@@ -77,19 +77,19 @@ public Myclass(int nn)
 		{
 		System.out.println(   "error nn<=0 in " + 
 		"public Myclass(int nn)\n" +
-		"nn=" +(float) nn  + "\n");
+		"nn=" +(double) nn  + "\n");
 		Runtime.getRuntime().exit(1);
 		}
 	n = nn; 			//default length
 	data = new byte[n];		//data array creation
-	re = new float[n];	
-	im = new float[n];	
+	re = new double[n];	
+	im = new double[n];	
 
 	for (int a=0; a<n; a++ )
 		{
 		data[a] = (byte)  0;
-		re[a]    = (float) 0;
-		im[a]    = (float) 0;
+		re[a]    = (double) 0;
+		im[a]    = (double) 0;
 		}
 }
 
@@ -110,12 +110,12 @@ public byte[] getdata()
 
 public void magnitude()
 {
-    float maxx=0;
-    float yy=0;
+    double maxx=0;
+    double yy=0;
     for(int nn=0; nn<n; nn++)
     {
         yy=(this.re)[nn]*(this.re)[nn]+(this.im)[nn]*(this.im)[nn];
-        yy=(float)Math.sqrt(yy);
+        yy=(double)Math.sqrt(yy);
         (this.re)[nn]=yy;
         (this.im)[nn]=0;
     }
@@ -123,14 +123,14 @@ public void magnitude()
 
 }
 
-public float getmaxmag()
+public double getmaxmag()
 {
-    float maxx=0;
-    float yy=0;
+    double maxx=0;
+    double yy=0;
     for(int nn=0; nn<n; nn++)
     {
         yy=(this.re)[nn]*(this.re)[nn]+(this.im)[nn]*(this.im)[nn];
-        yy=(float)Math.sqrt(yy);
+        yy=(double)Math.sqrt(yy);
         if (yy>maxx) maxx = yy;
     }
     return maxx;
@@ -138,9 +138,9 @@ public float getmaxmag()
 }
 
 
-public float maxre()
+public double maxre()
 {
-    float maxx=(this.re)[0];
+    double maxx=(this.re)[0];
     for(int nn=0; nn<n; nn++)
     {
          if ( (this.re)[nn] >maxx) maxx = (this.re)[nn];
@@ -150,9 +150,9 @@ public float maxre()
 }
 
 
-public float minre()
+public double minre()
 {
-    float minn=(this.re)[0];
+    double minn=(this.re)[0];
     for(int nn=0; nn<n; nn++)
     {
          if ( (this.re)[nn] < minn) minn = (this.re)[nn];
@@ -163,7 +163,7 @@ public float minre()
 
 public void normalize()
 {
-    float maxx=0;
+    double maxx=0;
     maxx=this.getmaxmag();
     for(int nn=0; nn<n; nn++)
     {
@@ -178,14 +178,14 @@ public void normalize()
 public void lnmag()
 {
     this.magnitude();
-    float maxx=0;
+    double maxx=0;
     maxx=this.getmaxmag();
     for(int nn=0; nn<n; nn++)
     {
         if( ((this.re)[nn])<maxx/8100.0f)
             (this.re)[nn]=maxx/8100.0f;
        (this.im)[nn]=0;
-       (this.re)[nn]=(float)(2.0*Math.log((this.re)[nn]));
+       (this.re)[nn]=(double)(2.0*Math.log((this.re)[nn]));
     }
 }
 
@@ -207,22 +207,22 @@ public void movingAverageFilter(int filterLength){
 }
 
 
-public void twentyLogTenMag(float differance) {
+public void twentyLogTenMag(double differance) {
     this.magnitude();
-    float maxx = 0;
+    double maxx = 0;
     for(int nn=0; nn<this.n; nn++) {
         if (this.re[nn] == 0) { 
             this.re[nn] = 0;
         }
         else {
-            this.re[nn] = (float)((20*Math.log(this.re[nn])/Math.log(10)));
+            this.re[nn] = (double)((20*Math.log(this.re[nn])/Math.log(10)));
         }
         
         if (this.re[nn] > maxx) {
             maxx = this.re[nn];
         }
     }
-    float min = maxx - differance;
+    double min = maxx - differance;
     for(int nn=0; nn<this.n; nn++) {
         if (this.re[nn] < min) {
             this.re[nn] = min;
@@ -235,8 +235,8 @@ public void   equals(Myclass  x)	 //equal
 {
 	int a;
 		(this).data =  new byte[x.n];	//new array creation
-		(this).re   =  new float[x.n];	
-		(this).im   =  new float[x.n];	
+		(this).re   =  new double[x.n];	
+		(this).im   =  new double[x.n];	
 		(this).n = x.n;
 
 		for (a=0; a<x.n ; a++ )
@@ -255,7 +255,7 @@ public void   equals(Myclass  x)	 //equal
 
 //    
 //    Function: Myclass  public void   plus(int x)
-//    		add float value to all Myclass re elements
+//    		add double value to all Myclass re elements
 //
 public void   plus(int x) {
     if( (n ==  0) || (data == null )) {
@@ -270,9 +270,9 @@ public void   plus(int x) {
 
 
 
-public void   divide(float x) {
+public void   divide(double x) {
     if( (n ==  0) || (data == null )) {
-	System.out.println(   "null array assignment in public void   divide(float x) \n");
+	System.out.println(   "null array assignment in public void   divide(double x) \n");
 	Runtime.getRuntime().exit(1);
     }
     else if (x == 0) {
@@ -289,7 +289,7 @@ public void   divide(float x) {
 }
 
 
-public void multiply(float real, float imag) {
+public void multiply(double real, double imag) {
     if( (n ==  0) || (data == null )) {
 	System.out.println(   "null array assignment in public void divide(multiply x) \n");
 	Runtime.getRuntime().exit(1);
@@ -302,22 +302,37 @@ public void multiply(float real, float imag) {
     }
 }
 
-public static Myclass freqresp(float a3, float a2, float a1, float a0, 
-                               float b3, float b2, float b1, float b0){
-    Myclass N = new Myclass(2048);
-    Myclass D = new Myclass(2048);
-    Myclass H = new Myclass(2048);
+public void differenceEqnFilter(double n0, double n1, double n2, double n3, double n4, double n5, double n6, 
+                               double d0, double d1, double d2, double d3, double d4, double d5, double d6){
+    double[] num = {n0, n1, n2, n3, n4, n5, n6};
+    double[] den = {d0, d1, d2, d3, d4, d5, d6};
+    Myclass y = new Myclass(this.n);
+    for (int nn = 0; nn < this.n; nn++){
+        for (int kk = 0; kk <= 6; kk++){
+            if ((nn - kk) >= 0)
+                y.re[nn] = y.re[nn] - y.re[nn - kk] * den[kk] + this.re[nn - kk] * num[kk];
+        }
+    }
+    this.equals(y);
+}
+
+
+public static Myclass freqresp(int samp, double a6, double a5, double a4, double a3, double a2, double a1, double a0, 
+                               double b6, double b5, double b4, double b3, double b2, double b1, double b0){
+    Myclass N = new Myclass(samp);
+    Myclass D = new Myclass(samp);
+    Myclass H = new Myclass(samp);
     
-    for (int kk  = 0; kk < 2048; kk++){
-        float ww = (float)Math.PI * 2 * kk / 2048;
-        N.re[kk] = (float)(a3 * Math.cos(3*ww) + a2 * Math.cos(2*ww) + a1 * Math.cos(ww) + a0);
-        N.im[kk] = (float)(a3 * Math.sin(3*ww) + a2 * Math.sin(2*ww) + a1 * Math.sin(ww)); 
-        D.re[kk] = (float)(b3 * Math.cos(3*ww) + b2 * Math.cos(2*ww) + b1 * Math.cos(ww) + b0);
+    for (int kk  = 0; kk < samp; kk++){
+        double ww = (double)Math.PI * 2 * kk / samp;
+        N.re[kk] = (double)(a6 * Math.cos(6*ww) + a5 * Math.cos(5*ww) + a4 * Math.cos(4*ww) + a3 * Math.cos(3*ww) + a2 * Math.cos(2*ww) + a1 * Math.cos(ww) + a0);
+        N.im[kk] = (double)(a6 * Math.sin(6*ww) + a5 * Math.sin(5*ww) + a4 * Math.sin(4*ww) + a3 * Math.sin(3*ww) + a2 * Math.sin(2*ww) + a1 * Math.sin(ww)); 
+        D.re[kk] = (double)(b6 * Math.cos(6*ww) + b5 * Math.cos(5*ww) + b4 * Math.cos(4*ww) + b3 * Math.cos(3*ww) + b2 * Math.cos(2*ww) + b1 * Math.cos(ww) + b0);
         if (D.re[kk] == 0)
-            D.re[kk] = (float).00000001;
-        D.im[kk] = (float)(b3 * Math.sin(3*ww) + b2 * Math.sin(2*ww) + b1 * Math.sin(ww));
+            D.re[kk] = (double).00000001;
+        D.im[kk] = (double)(b6 * Math.sin(6*ww) + b5 * Math.sin(5*ww) + b4 * Math.sin(4*ww) + b3 * Math.sin(3*ww) + b2 * Math.sin(2*ww) + b1 * Math.sin(ww));
         if (D.im[kk] == 0)
-            D.im[kk] = (float).00000001;
+            D.im[kk] = (double).00000001;
         (H.re)[kk] = ((N.re)[kk]*(D.re)[kk]+(N.im)[kk]*(D.im)[kk])/((D.re)[kk]*(D.re)[kk]+(D.im)[kk]*(D.im)[kk]);
         (H.im)[kk] = ((N.im)[kk]*(D.re)[kk]-(N.re)[kk]*(D.im)[kk])/((D.re)[kk]*(D.re)[kk]+(D.im)[kk]*(D.im)[kk]);
     }
@@ -336,8 +351,8 @@ public void freqShift(int distance) {
     else {
         for (int nn = 0; nn < this.n; nn++) {
             double ww = -2 * Math.PI * distance * nn / this.n;
-            Y.re[nn] = (float)(this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
-            Y.im[nn] = (float)(this.im[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
+            Y.re[nn] = (double)(this.re[nn] * Math.cos(ww) - this.im[nn] * Math.sin(ww));
+            Y.im[nn] = (double)(this.im[nn] * Math.cos(ww) + this.re[nn] * Math.sin(ww));
         }
     }
     this.equals(Y);
@@ -419,7 +434,7 @@ public void multiply(Myclass x) {
 
 
 
- public float getelre(int nn)
+ public double getelre(int nn)
 {
 	if ( (nn >= n ) || (nn < 0) )
 		{
@@ -433,7 +448,7 @@ public void multiply(Myclass x) {
 
 
 
- public float getelim(int nn)
+ public double getelim(int nn)
 {
 	if ( (nn >= n ) || (nn < 0) )
 		{
@@ -446,7 +461,7 @@ public void multiply(Myclass x) {
 }
 
 
- public void setelre(int nn, float x)
+ public void setelre(int nn, double x)
 {
 	if ( (nn >= n ) || (nn < 0) )
 		{
@@ -459,7 +474,7 @@ public void multiply(Myclass x) {
 }
 
 
- public void setelim(int nn, float x)
+ public void setelim(int nn, double x)
 {
 	if ( (nn >= n ) || (nn < 0) )
 		{
@@ -473,8 +488,8 @@ public void multiply(Myclass x) {
 
  
  
-public static Myclass linconvolve(Myclass x, Myclass h) {
-    Myclass y = new Myclass(x.n  + h.n - 1);    
+public static Myclass linconvolve(Myclass x, Myclass h, int samp) {
+    Myclass y = new Myclass(samp);    
     int errors = 0;
     
     for (int nn = 0; nn < y.n; nn++) {
@@ -551,7 +566,7 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 		{
 		System.out.println(  "error n <= 0 in " + 
 		"public fft2()\n" +
-		"n=" +(float) n  + "\n");
+		"n=" +(double) n  + "\n");
 		Runtime.getRuntime().exit(1);
 		}
 
@@ -568,8 +583,8 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 	int rr,offset;			//buterfly level
 	Myclass w0 = new Myclass( this.n );	// array of all possible angles
 //	Myclass wk( (this).n );	// array particular twiddle factors 
-	float topsumre,topsumim,botsumre,botsumim;	// butter dummies
-	float topre,topim,botre,botim;		    //butter dummies
+	double topsumre,topsumim,botsumre,botsumim;	// butter dummies
+	double topre,topim,botre,botim;		    //butter dummies
 	int groups,gcnt,gsize,butcnt,numbut,kn;		//butter dummies
 	Myclass t1=new Myclass();
 
@@ -591,7 +606,7 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 		System.out.println(  "error size not power of " +prime+
 		" or bigger than  " + Math.pow((double)prime,(maxpow)) +
 		"public fft2()\n" +
-		"n=" +(float) n  + "\n");
+		"n=" +(double) n  + "\n");
 		Runtime.getRuntime().exit(1);
 		}
 
@@ -617,7 +632,7 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 			{
 			System.out.println(   "error bad index bit reverse in " +
 			"public fft2()\n" +
-			"rev=" +(float) rev  + "\n");
+			"rev=" +(double) rev  + "\n");
 			Runtime.getRuntime().exit(1);
 			}
 		else
@@ -669,8 +684,8 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 	   	for ( nn=0; nn < N ; nn++ )
 			{
 			arg = (nn * kk) % N;
-			(w0.re)[nn] = (float) Math.cos ( (-2.0 * pi * arg) / N);
-			(w0.im)[nn] = (float) Math.sin ( (-2.0 * pi * arg) / N);
+			(w0.re)[nn] = (double) Math.cos ( (-2.0 * pi * arg) / N);
+			(w0.im)[nn] = (double) Math.sin ( (-2.0 * pi * arg) / N);
 			}
 	   	}
 
@@ -679,8 +694,8 @@ public Myclass fft2(int inv)		//inverse if inv !=0
 	   	for ( nn=0; nn < N ; nn++ )
 			{
 			arg = (nn * kk) % N;
-			(w0.re)[nn]  = (float) Math.cos ( (2.0 * pi * arg) / N);
-			(w0.im)[nn]  = (float) Math.sin ( (2.0 * pi * arg) / N);
+			(w0.re)[nn]  = (double) Math.cos ( (2.0 * pi * arg) / N);
+			(w0.im)[nn]  = (double) Math.sin ( (2.0 * pi * arg) / N);
 			}
 	   	}
 
@@ -757,7 +772,7 @@ public Myclass fft()
 		{
 		System.out.println(   "error n <= 0 in " + 
 		"public fft()\n" +
-		"n=" +(float) n  + "\n");
+		"n=" +(double) n  + "\n");
 		Runtime.getRuntime().exit(1);
 		}
 
@@ -786,18 +801,18 @@ public Myclass ifft()
 
 
 
-public void digitize8mulaw(float mu)
+public void digitize8mulaw(double mu)
 {
 	if ( ((this).n <= 0 )   )
 		{	System.out.println(  "error in " + 
-		"public digitize8()\n" +"n=" +(float) n  + "\n");
+		"public digitize8()\n" +"n=" +(double) n  + "\n");
 		Runtime.getRuntime().exit(1);		}
 	int a;
 	Myclass z = new Myclass();
 	z.equals(this);
-	float max1,min1,extreme,scale;
-	float magin,magout,rr,scale2,signrr;
-	float linmax=125;
+	double max1,min1,extreme,scale;
+	double magin,magout,rr,scale2,signrr;
+	double linmax=125;
 	byte dout;
 	byte hexsign=(byte)0x80;	//sign bit for mu law
 
@@ -824,7 +839,7 @@ for (a=0; a< z.getn(); a++)
 			if (rr >= 0) signrr=1;
 				else signrr=-1;
 			magin=Math.abs(rr);
-			magout=(float)(Math.log(1 + mu * magin)/Math.log(1+mu));
+			magout=(double)(Math.log(1 + mu * magin)/Math.log(1+mu));
 			magout=magout * scale2;
 			dout=(byte)( magout + .5 );
 			dout=(byte)((~dout)&(~hexsign));     //deviates from t1?
@@ -882,7 +897,7 @@ public Myclass readraw(String filename)
                     new DataInputStream( new FileInputStream(filename));
     
 	int size=0;
-        float zz=0;
+        double zz=0;
         while( (zz=infile.readFloat()) != -1){size=size+1;
         }
         
@@ -891,7 +906,7 @@ public Myclass readraw(String filename)
 
  	size=size-1;
      
-	float ff;
+	double ff;
         size=0;
         infile = new DataInputStream( new FileInputStream(filename));
 
@@ -902,8 +917,8 @@ public Myclass readraw(String filename)
 	for ( int nn=0; nn< z.getn() ;nn++ )
 		{
 
-//		*(z.re +nn)= (float) (*(z.data + nn));
-//		*(z.im +nn)= (float)0;
+//		*(z.re +nn)= (double) (*(z.data + nn));
+//		*(z.im +nn)= (double)0;
 //		infile>> *( z.re + nn) ;
 //		infile>> *( z.im + nn) ;
                 (z.re)[nn]=infile.readFloat();
@@ -928,8 +943,8 @@ public Myclass readraw(String filename)
 public void readau(String filename)
 {
 	Myclass z = new Myclass();		
-	float mu=100;
-	float magin,magout,rr,signrr;
+	double mu=100;
+	double magin,magout,rr,signrr;
 	char c;
 	byte din;
 	byte hexsign=(byte)0x80;	//sign bit for mu law
@@ -944,7 +959,7 @@ public void readau(String filename)
 
 	System.out.println( "readau: filename %s \n"+ filename);
 
-       float zz=0;
+       double zz=0;
 
        try {
            DataInputStream infile =
@@ -968,7 +983,7 @@ public void readau(String filename)
 	size=size-40; //tpw was 41?
 	if ( size < 1 )
 		{System.out.println( "public readau() bad size:"+filename);}
-	float ff;
+	double ff;
         infile = new DataInputStream( new FileInputStream(filename));
 	Myclass x = new Myclass(size);		//create proper size object
         z.equals(x);
@@ -984,16 +999,16 @@ public void readau(String filename)
 			din=(z.data)[a];
 			if ( (din & hexsign) !=0 ) signrr=1;
 				else signrr=-1;
-			rr=(float)( (byte)( (~din) & (~hexsign) ) /127.0);
+			rr=(double)( (byte)( (~din) & (~hexsign) ) /127.0);
 			//magout=fabs(rr);
 			magout=rr;
-			magin=(float)(magout*Math.log(1+mu));
-			magin=(float)(Math.exp(magin));
+			magin=(double)(magout*Math.log(1+mu));
+			magin=(double)(Math.exp(magin));
 			magin=(magin - 1)/mu;
 			magin=signrr*magin;
 
 			(z.re)[a]=magin;
-			(z.im)[a]= (float)0;
+			(z.im)[a]= (double)0;
 
 			}
 

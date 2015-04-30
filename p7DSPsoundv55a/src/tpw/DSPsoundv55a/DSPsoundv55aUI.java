@@ -58,7 +58,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
 
             dispData=new Myclass(16);
             for(int nn=0; nn<dispData.getn(); nn++)  //load default data for display
-                dispData.setelre(nn,(float)(100*(nn-dispData.getn()/2)));
+                dispData.setelre(nn,(double)(100*(nn-dispData.getn()/2)));
                 dispData.setelre(0,0f);
             inData1=new Myclass();
             inData2=new Myclass();
@@ -144,8 +144,13 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
 
         jLabel1.setText("input filename1:");
 
-        jTextFieldInfilename1.setText("sin3264.au");
+        jTextFieldInfilename1.setText("iqmodint.au");
         jTextFieldInfilename1.setPreferredSize(new java.awt.Dimension(200, 19));
+        jTextFieldInfilename1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldInfilename1ActionPerformed(evt);
+            }
+        });
 
         jButtonRead1.setText("Read1");
         jButtonRead1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,7 +166,12 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
 
         jLabel5.setText("input filename2:");
 
-        jTextFieldinfilename2.setText("sin32.au");
+        jTextFieldinfilename2.setText("iqmod.au");
+        jTextFieldinfilename2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldinfilename2ActionPerformed(evt);
+            }
+        });
 
         jButtonRead2.setText("Read2");
         jButtonRead2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,6 +324,11 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
         jButtonF1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 F1Clicked(evt);
+            }
+        });
+        jButtonF1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonF1ActionPerformed(evt);
             }
         });
         jPanel9.add(jButtonF1);
@@ -562,7 +577,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
     Myclass x = new Myclass();
-    x = Myclass.freqresp(0, 1, 0, 0, 0, 1, -1f, .5f);
+    x = Myclass.freqresp(1024, 0d, 1d, 0d, 0d, 0d, 1d, -1d, .5d, 0d, 0d, 0d, 0d, 0d, 0d);
     dispData.equals(x);
 
         
@@ -576,8 +591,24 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     String fkey = new String("ImpulseResponse");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-// Put your ecgr4124 code here
-        
+    Myclass x = new Myclass();
+    x.equals(dispData);
+    x.differenceEqnFilter( 
+            1.531073833185154e-07, 
+            9.186442999110922e-07,
+            2.296610749777731e-06,
+            3.062147666370307e-06,
+            2.296610749777731e-06,
+            9.186442999110922e-07,
+            1.531073833185154e-07,
+            1, 
+            -5.407428601645258, 
+            1.221016798841090e+01, 
+            -1.473488284294935e+01, 
+            1.002167522319444e+01, 
+            -3.641955142088866, 
+            5.524331739506566e-01);
+    dispData.equals(x);
     refreshDisplay(); //redraws output display screen           
         
     }//GEN-LAST:event_jButtonImpulseResponseMouseClicked
@@ -593,7 +624,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
         
         x.equals(inData1);
         h.equals(inData2);
-        dispData = Myclass.linconvolve(x, h);
+        //dispData = Myclass.linconvolve(x, h);
         
     refreshDisplay(); //redraws output display screen           
                
@@ -781,10 +812,10 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
      String fkey = new String("F4");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-    Myclass x = new Myclass(512);
+    Myclass x = new Myclass(1024);
     Myclass y = new Myclass();
     y.equals(dispData);
-    for(int nn=0; nn<512;nn++)
+    for(int nn=0; nn<1024;nn++)
         x.setelre(nn,dispData.getelre(nn));
     dispData.equals(x);
     refreshDisplay(); //redraws output display screen
@@ -833,6 +864,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
       
     }//GEN-LAST:event_F2Clicked
 
+    
     private void F1Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F1Clicked
 // TODO add your handling code here:
                     
@@ -841,14 +873,14 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     String fkey = new String("F1");
     jEditorPaneBottom.setText( fkey + " clicked \n");  //printout at screenbottom 
 
-// Put your ecgr4124 code here
-    
-    //remove the following  code after answering the corresponding
-    //questions for project 1
-    
     Myclass x = new Myclass();
     x.equals(dispData);
-    x.movingAverageFilter(3);
+    Myclass y = new Myclass(x.getn());
+    for(int ii = 0; ii < x.getn(); ii++){
+        y.setelre(ii, (double)Math.sin(Math.PI*ii/4));
+    }
+    x.multiply(y);
+    //x.movingAverageFilter(3);
     dispData.equals(x);
     
         
@@ -908,6 +940,18 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
     private void jButtonMagHomegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMagHomegaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonMagHomegaActionPerformed
+
+    private void jTextFieldInfilename1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldInfilename1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldInfilename1ActionPerformed
+
+    private void jTextFieldinfilename2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldinfilename2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldinfilename2ActionPerformed
+
+    private void jButtonF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonF1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonF1ActionPerformed
 
     
     
@@ -969,9 +1013,9 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
         int xxs=0,yys=0,xxf=0,yyf=0;
         int xoff=100,yoff=50,xwid=512,ywid=280;
         if(dispXdim>1149) xwid=1024;            
-        float maxx=dispData.maxre();
-        float minn=dispData.minre();
-        float scale=maxx-minn;
+        double maxx=dispData.maxre();
+        double minn=dispData.minre();
+        double scale=maxx-minn;
         if(scale == 0) 
         {scale=.02f; maxx=maxx+.01f;  minn=minn-.01f;  }
         if(Math.abs(maxx/scale)+Math.abs(minn/scale) > 1e6) 
@@ -992,8 +1036,8 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
          gg.setColor(Color.MAGENTA);
          gg.drawString("0",xoff,dispYdim-yoff+25);
          gg.drawString(Integer.toString(dispData.getn()-1),xoff+xwid-40,dispYdim-yoff+25);   
-         gg.drawString(Float.toString(maxx),5,dispYdim-yoff-ywid);
-         gg.drawString(Float.toString(minn),5,dispYdim-yoff);
+         gg.drawString(Double.toString(maxx),5,dispYdim-yoff-ywid);
+         gg.drawString(Double.toString(minn),5,dispYdim-yoff);
          if (zoom2flag != 0)
             gg.drawString("***** Zoom "+Integer.toString(zoom2flag)+" Factor *****",
                     xwid/2,dispYdim-yoff-ywid-5);
@@ -1140,7 +1184,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
       int numBytes =  bytesPerFrame; 
       byte[] audioBytes = new byte[(int)filesize*2];
       int[] audioInts = new int[(int)filesize];
-      float[] audioFloats = new float[(int)filesize];
+      double[] audioFloats = new double[(int)filesize];
               for(int nn=0; nn<filesize; nn++)
         {audioBytes[nn]=0;
         }
@@ -1166,7 +1210,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
           if(cnt==2)
           {cnt=0; 
            audioInts[ni]=(((int)audioBytes[nb])<<8)+(int)audioBytes[nb-1];
-           audioFloats[ni]=(float)((float)audioInts[ni]/32768.0);
+           audioFloats[ni]=(double)((double)audioInts[ni]/32768.0);
            ni=ni+1;
           }
           nb=nb+1;
@@ -1178,7 +1222,7 @@ public class DSPsoundv55aUI extends javax.swing.JFrame {
                  +" audiobyte 2nn="+audioBytes[2*nn]
                  +"  2nn-1="+audioBytes[2*nn-1]
                  +" audioInts="+audioInts[nn]
-                 +" audiofloat="+(float)((float)((((int)audioBytes[2*nn])<<7)+(int)audioBytes[2*nn-1])/32768.0*2.0)
+                 +" audiodouble="+(double)((double)((((int)audioBytes[2*nn])<<7)+(int)audioBytes[2*nn-1])/32768.0*2.0)
                  +" sum"+((((int)audioBytes[2*nn])<<7)+(int)audioBytes[2*nn-1]) 
                  );
         }
